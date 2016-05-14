@@ -1,0 +1,19 @@
+
+    <menu xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+        <item android:id="@+id/top_rated"
+            android:title="Top rated"
+             />
+
+        <item android:id="@+id/most_popular"
+            android:title="Most popular"
+            />
+
+        <item android:id="@+id/my_Favorite"
+            android:title="Favorites"
+            />
+    </menu>
+
+
