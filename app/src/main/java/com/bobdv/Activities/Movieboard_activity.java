@@ -16,7 +16,8 @@ public class Movieboard_activity extends AppCompatActivity implements MovieDataL
 
     boolean mPaneTwo;
     String iMovieID, iPosterPath, iMovieTitle, iVoteAvarage, iOverView, iMovieDate;
-
+    Intent DetailsActivity;
+    movieboard_fragment movieboard_fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,17 +31,37 @@ public class Movieboard_activity extends AppCompatActivity implements MovieDataL
         }
 
         if (null == savedInstanceState) {
-            movieboard_fragment movieboard_fragment = new movieboard_fragment();
+              movieboard_fragment = new movieboard_fragment();
             movieboard_fragment.setMovieDataListner(this);
             getFragmentManager().beginTransaction().add(R.id.pane_one, movieboard_fragment).commit();
 
+        }
+        else
+        {
+            movieboard_fragment = new movieboard_fragment();
+            movieboard_fragment.setMovieDataListner(this);
+            getFragmentManager().beginTransaction().add(R.id.pane_one, movieboard_fragment).commit();
         }
 
 
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState ) {
+        outState.putString("a","a");
 
-    Intent DetailsActivity;
+        super.onSaveInstanceState(outState );
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+
+
+
+    }
 
     @Override
     public void setSelected_MovieID(String MovieID) {

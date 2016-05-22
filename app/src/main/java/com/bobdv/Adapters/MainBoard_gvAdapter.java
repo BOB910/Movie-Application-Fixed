@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.bobdv.MovieDataListner;
 import com.bobdv.R;
 import com.squareup.picasso.Picasso;
 
@@ -24,8 +23,7 @@ public class MainBoard_gvAdapter extends BaseAdapter {
     ArrayList<String> imoviesArrPoster_path;
 
 
-    MovieDataListner iMovieDataListner;
-    // Constructor
+     // Constructor
     public MainBoard_gvAdapter(Context c,    ArrayList<String> moviesArrPoster_path) {
         mContext = c;
 
@@ -54,16 +52,18 @@ public class MainBoard_gvAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        convertView = mInflater.inflate(R.layout.main_grid_adapter_item, null);
-        ImageView MainBoardPoster = (ImageView) convertView.findViewById(R.id.MainBoardPoster);
+        if(convertView==null)
+        { convertView = mInflater.inflate(R.layout.main_grid_adapter_item, null);}
+        else
+
+        {
+            ImageView MainBoardPoster = (ImageView) convertView.findViewById(R.id.MainBoardPoster);
 
 
-
-
-        Picasso.with(mContext).load(imoviesArrPoster_path.get(position)).placeholder(R.drawable.logo).into(MainBoardPoster);
+            Picasso.with(mContext).load(imoviesArrPoster_path.get(position)).placeholder(R.drawable.logo).into(MainBoardPoster);
 //
 
-
+        }
 
         return convertView;
     }

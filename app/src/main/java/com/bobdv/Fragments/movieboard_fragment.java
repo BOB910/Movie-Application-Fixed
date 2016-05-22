@@ -90,6 +90,8 @@ public class movieboard_fragment extends Fragment {
             MyDb = new AppDataBase(getActivity());
 
             new getAPIDataAsync().execute(popularLink + API_KEY);
+
+
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Most popular");
         } catch (InflateException e) {
             Toast.makeText(getActivity(), "something went wrong !!", Toast.LENGTH_SHORT).show();
@@ -124,19 +126,24 @@ public class movieboard_fragment extends Fragment {
         mainBoardGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                iMovieDataListner.setSelected_MovieID(arrMovieId.get(position));
-                iMovieDataListner.setSelected_PosterPath(arrPoster_path.get(position));
-                iMovieDataListner.setSelected_MovieOrignalTitle(arrOriginal_title.get(position));
-                iMovieDataListner.setSelected_mDate(arrRelease_date.get(position));
-                iMovieDataListner.setSelected_vote_average(arrVote_average.get(position));
-                iMovieDataListner.setSelected_OverView(arr_overview.get(position));
+                try {
+                    Log.d("MOVIE APP ", "Error   :  " + arrMovieId.toString());
 
-                Log.d("Movie", "arr " + arrVote_average.get(position));
-                Log.d("Movie", "arr_overview " + arr_overview.get(position));
 
+                    iMovieDataListner.setSelected_MovieID(arrMovieId.get(position));
+                    iMovieDataListner.setSelected_PosterPath(arrPoster_path.get(position));
+                    iMovieDataListner.setSelected_MovieOrignalTitle(arrOriginal_title.get(position));
+                    iMovieDataListner.setSelected_mDate(arrRelease_date.get(position));
+                    iMovieDataListner.setSelected_vote_average(arrVote_average.get(position));
+                    iMovieDataListner.setSelected_OverView(arr_overview.get(position));
+
+                } catch (Exception err) {
+                    Log.d("MOVIE APP ", "Error   :  " + err.getMessage());
+                }
             }
         });
     }
+
 
     public void setMovieDataListner(MovieDataListner movieDataListner) {
         iMovieDataListner = movieDataListner;
@@ -173,12 +180,12 @@ public class movieboard_fragment extends Fragment {
                 ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("My Favorite");
 
 
-                                    arrMovieId.clear();
-                    arrPoster_path.clear();
-                    arrOriginal_title.clear();
-                    arrRelease_date.clear();
-                    arrVote_average.clear();
-                    arr_overview.clear();
+                arrMovieId.clear();
+                arrPoster_path.clear();
+                arrOriginal_title.clear();
+                arrRelease_date.clear();
+                arrVote_average.clear();
+                arr_overview.clear();
                 MyDb.openDataBase();
                 hashMap_favMovies = MyDb.GetMovieDetails();
                 MyDb.closeDataBase();
@@ -194,7 +201,6 @@ public class movieboard_fragment extends Fragment {
                     mainBoard_gvAdapter = new MainBoard_gvAdapter(getActivity().getApplicationContext(), arrPoster_path);
                     mainBoard_gvAdapter.notifyDataSetChanged();
                     mainBoardGridView.setAdapter(mainBoard_gvAdapter);
-
 
                 } else {
                     Toast.makeText(getActivity(), "No favorite movies", Toast.LENGTH_LONG).show();
@@ -247,7 +253,6 @@ public class movieboard_fragment extends Fragment {
 
                 ParseMoviesResult(result);
 
-//                mainBoard_gvAdapter = new MainBoard_gvAdapter(getActivity().getApplicationContext(), arrMovieId, arrPoster_path, arrTitle, arrRelease_date, arrVote_average, arr_overview);
                 mainBoard_gvAdapter = new MainBoard_gvAdapter(getActivity().getApplicationContext(), arrPoster_path);
                 mainBoard_gvAdapter.notifyDataSetChanged();
                 mainBoardGridView.setAdapter(mainBoard_gvAdapter);
@@ -287,19 +292,6 @@ public class movieboard_fragment extends Fragment {
 //
                 JSONObject Obj = resultsArray.getJSONObject(i);
 
-//                String poster_path = Obj.getString("poster_path");
-//                String adult = Obj.getString("adult");
-//                String overview = Obj.getString("overview");
-//                String id = Obj.getString("id");
-//                String original_title = Obj.getString("original_title");
-//                String original_language = Obj.getString("original_language");
-//                String title = Obj.getString("title");
-//                String backdrop_path = Obj.getString("backdrop_path");
-//                String popularity = Obj.getString("popularity");
-//                String vote_count = Obj.getString("vote_count");
-//                String video = Obj.getString("video");
-//                String vote_average = Obj.getString("vote_average");
-//                String mDate = Obj.getString("release_date");
                 arrPoster_path.add(imageLink + Obj.getString("poster_path"));
                 arrIsForAdults.add(Obj.getString("adult"));
                 arr_overview.add(Obj.getString("overview"));
@@ -316,17 +308,6 @@ public class movieboard_fragment extends Fragment {
 
 
             }
-
-            Log.d("MYMOVIE", "arrVote_average    :  " + arrVote_average.toString());
-            Log.d("MYMOVIE", "arrPopularity    :  " + arrPopularity.toString());
-
-
-            Log.d("MYMOVIE", "arrPopularity 2   :  " + arrPopularity.toString());
-//            Log.d("MYMOVIE", "overview    :  " + overview);
-//            Log.d("MYMOVIE", "id    :  " + id);
-//            Log.d("MYMOVIE", "original_title    :  " + original_title);
-//            Log.d("MYMOVIE", "original_language    :  " + original_language);
-//            Log.d("MYMOVIE", "title    :  " + title);
 
 
         } catch (JSONException e) {

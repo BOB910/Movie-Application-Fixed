@@ -1,8 +1,6 @@
 package com.bobdv;
 
-/**
- * Created by Mohamed Magdy on 5/4/2016.
- */
+
 public interface MovieDataListner {
 
 
